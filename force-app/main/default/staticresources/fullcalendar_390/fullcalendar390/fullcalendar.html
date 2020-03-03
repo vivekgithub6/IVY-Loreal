@@ -1,0 +1,71 @@
+<html>
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!--  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.css" rel="stylesheet" /> -->
+    <link href="../fullcalendar390/fullcalendar.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="../fullcalendar390/fullcalendar.js"></script>
+
+
+
+
+
+    <!-- <script src='fullcalendar390/lib/jquery.min.js'></script>
+    <script src='fullcalendar390/lib/jquery-ui.min.js'></script>
+    <script src='fullcalendar390/lib/moment.min.js'></script>
+    <script src='fullcalendar390/fullcalendar.js'></script>
+
+    <link href='fullcalendar.css' rel='stylesheet' /> -->
+
+    <script>
+        //  alert();
+        $(document).ready(function() {
+
+            // page is now ready, initialize the calendar...
+            var m = moment();
+            //     alert(m);
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+
+                // themeSystem: 'jquery-ui',
+
+                defaultDate: m.format(),
+                editable: true,
+                navLinks: true, // can click day/week names to navigate views
+                weekNumbers: true,
+                weekNumbersWithinDays: true,
+                weekNumberCalculation: 'ISO',
+                editable: true,
+                eventLimit: true,
+
+                //  events: data,
+                selectable: true,
+                eventColor: '#53E0BC',
+                eventTextColor: 'Black',
+                dragScroll: true,
+                droppable: true,
+                //  weekNumbers : true,
+                eventDrop: false,
+
+            })
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id='calendar'></div>
+
+</body>
+
+</html>

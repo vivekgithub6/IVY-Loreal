@@ -1,0 +1,240 @@
+.THIS .slds-modal__header{
+    border:none;
+}
+.THIS .mycalendar{
+    /* margin-top: 0px !important; */
+    /* border-right-width: 0px !important; */
+    /*  padding-right: 50px !important; */
+    /*  padding-bottom: 25px !important; */
+    border-left:1px solid #d3d3d3;    
+    padding-top: 15px !important;
+    /* margin-left:-15px; */
+    width:100%;
+}
+.THIS .navigationitems{
+    width:350px;
+    box-shadow: 2px 2px 12px 2px lightgrey !important;
+    border-radius:0px;
+}
+.THIS .slds-modal__container .navigationmodal{
+    
+}
+
+.THIS .slds-pill_container {
+    width:375px;
+}
+.THIS .fc-header-toolbar{
+    font-size:10px !important;
+}
+
+.THIS .slds-modal__container{
+    min-width:22rem;
+    width:37rem;
+    height:fit-content; 
+    margin-top:-115px; 
+}
+
+.THIS .slds-button.slds-button_brand{
+    width:220px;
+}
+.THIS .slds-button+.slds-button {
+    margin-left: 5rem;
+}
+.THIS .slds-button.slds-button_brand {
+    width: 180px;
+}
+
+.THIS .fc-month-button ui-button ui-state-default ui-corner-left ui-state-active {
+    background-color: #d3d3d3; 
+    border: none; color: #ffffff; 
+    padding: 10px 24px; 
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px; 
+    margin: 4px 2px; 
+    border-radius: 20px; 
+    cursor: pointer;
+}
+.THIS .fc .fc-button-group{
+    float: left;
+    margin: 0 0 0 25px !important;
+}
+.THIS .container{
+    
+    border: 1px solid #d8dde6;
+    margin:auto;
+    background:white;
+    width:50%!important;
+    
+}
+
+
+.THIS .dot1{
+    
+    height: 15px;
+    width: 15px;
+    background-color:#00A3Ad;
+    border-radius: 50%;
+    display: inline-block;
+    
+}
+.THIS .dot2{
+    
+    height: 15px;
+    width: 15px;
+    background-color:#FF6E7E;
+    border-radius: 50%;
+    display: inline-block;
+    
+}
+.THIS .dot3{
+    
+    height: 15px;
+    width: 15px;
+    background-color:#FDCC08;
+    border-radius: 50%;
+    display: inline-block;
+    
+}
+.THIS .dot4{
+    
+    height: 15px;
+    width: 15px;
+    background-color:#C79DF0;
+    border-radius: 50%;
+    display: inline-block;
+    
+}
+.THIS .slds-icon_x-small{
+    width:5rem;
+    color:#00a3ad;
+}
+.THIS .slds-select_container .slds-select{
+    padding-right: 8.5rem !important;
+    padding-left:  0.5rem;
+    border-radius:-0.75rem !important;
+}
+.THIS .initialmodal .slds-modal__container{
+    height:100%;
+}
+.THIS .slds-input {
+    padding-right:5rem;
+    border-radius:-0.75rem !important;
+}
+.THIS .ui-widget-header{
+    color:black;
+    background:#eae8e8;
+}
+
+.THIS .fc-day-number{
+    font-weight:bold !important;
+    color:black !important;
+}
+.THIS .fc-next-button{
+    right:45px;
+}
+.THIS .fc-prev-button{
+    right:30px;
+}
+.THIS .fc-today-button{
+    right:50px;
+}
+.THIS .checkboxes{
+    text-align:left;
+}
+.THIS .labelwidth{
+    min-width:360px;
+}
+.THIS .slds-checkbox_faux:after{
+    
+    border-color:white !important;
+    
+}
+.THIS .slds-checkbox_faux{
+    background-color:#00a3ad !important;
+}
+.THIS h2{
+    font-weight:bold;
+    font-size:13px;
+}
+.THIS h4{
+    font-weight:bold;
+    font-size:medium;
+}
+.THIS .fc-month-button{
+    right:10px;
+}
+.THIS .fc-agendaWeek-button{
+    right:10px;
+}
+.THIS .fc-agendaDay-button{
+    right:10px;
+}
+.THIS .fc-addnew-button {
+    
+    border-radius:0px !important;
+    background: none;
+    background-color: #006280;
+    color: white;
+    height:25px;
+    width:65px;    
+}
+.THIS .fc-AddIcon-button {   
+    margin-left:0px !important;
+    border-radius:0px !important;
+    background: none;
+    background-color: #006280;
+    color: white; 
+    height:25px;
+    width:23px;  
+}
+.THIS .fc-today-button{
+    outline:none;
+}
+.THIS .fc-now-indicator-line{
+    border-top-width:2px ;
+    border-top-color:darkblue;
+}
+.THIS .slds-nav-vertical__action{
+    color:#00a3ad;
+    font-weight:200px;
+    font-size:medium
+}
+.THIS .slds-nav-vertical__title .slds-text-title_caps{
+    display:none;    
+}
+.THIS .leftlayout{
+    /* width:240px; */
+    
+} 
+.THIS .slds-nav-vertical__title{
+    display:none;
+}
+.THIS .TaskItem{
+    border:none;
+    padding-right:190px;
+    font-size:15px;
+    
+}
+.THIS .AppointmentItem{
+    border:none;
+    padding-right:130px;
+    font-size:15px;
+    
+}
+.THIS .EventItem{
+    border:none;
+    padding-right:180px;
+    font-size:15px;
+}
+.THIS .TaskItems{
+    
+    border-bottom:1px solid lightgrey;
+}
+.THIS .AppointmentItems{
+    border-bottom:1px solid lightgrey;
+}
+.THIS .scrollBarForMoz{
+    scrollbar-width: thin;
+}

@@ -1,0 +1,61 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    
+    <aura:attribute name="selectedrecord" type="Object"/>
+    <aura:attribute name="ActivityName" type="String"/>
+    <aura:attribute name="isOpen" type="String" default = "True"/>
+    
+    <aura:attribute name="JPActivity" type="Boolean"/>
+    <aura:attribute name="isRinten" type="Boolean"/>
+    <aura:attribute name="isDoko" type="Boolean"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="closeCalenderModal" type="c:CloseModal"/>
+    
+    <div aria-hidden="false" aura:id="popUpId" role="dialog" class="slds-modal slds-fade-in-open slds-modal_small hideContent" style="padding-top:7%">
+        <div class="slds-modal__container" style="top:-1%">
+            
+            <div class="slds-modal__header">
+                <div class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.hidePopup}">
+                    <lightning:icon iconName="utility:close"  size="small" alternativeText=""/>
+                    <span class="slds-assistive-text">Close</span>
+                </div>
+            </div>
+            
+            <div class="slds-modal__content " style="padding:40px">
+                <lightning:layout multipleRows="true">
+                    {!v.recordDataTypeName}
+                    <aura:if isTrue="{!v.isRinten}">
+                        <lightning:layoutItem size="6" flexibility="auto" padding="around-small" >
+                            Salon Name : {!v.selectedrecord.Retailer_Id__r.Name}
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6" flexibility="auto" padding="around-small">  
+                            Hair Dresser Name : {!v.selectedrecord.Hair_Dresser__c}
+                        </lightning:layoutItem>
+                    </aura:if>
+                    <aura:if isTrue="{!v.isDoko}">
+                        <lightning:layoutItem size="6" flexibility="auto" padding="around-small">
+                            Agent Name : {!v.selectedrecord.Agent__r.Name}
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6" flexibility="auto" padding="around-small">
+                            Salon Name : {!v.selectedrecord.Retailer_Id__r.Name}
+                        </lightning:layoutItem>
+                    </aura:if>
+                    <aura:if isTrue="{!v.JPActivity}">
+                        <lightning:layoutItem size="6" flexibility="auto" padding="around-small">
+                            Activity Name : {!v.selectedrecord.Activity_Name__c}
+                        </lightning:layoutItem>
+                    </aura:if>
+                </lightning:layout>
+                
+            </div>
+            <center>
+                <div class="slds-modal__footer" style="padding-top: 20px">
+                    <lightning:button  variant="Success"  type="submit" name="Close" label="CLOSE"  class="update" onclick="{!c.Close}"/>
+                </div>
+            </center>
+        </div>
+    </div> 
+    <div class="slds-backdrop slds-backdrop--open hideContent" aura:id="popUpBackgroundId"></div> 
+    
+    
+</aura:component>

@@ -1,0 +1,222 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" showChat="false" showQuickActionVfHeader="false" standardStylesheets="false" standardController="ivybase__Digital_Content__c" setup="false" extensions="mainfinal5" lightningStylesheets="true" >
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <!-- Import the Design System style sheet -->
+            <apex:slds />
+        </head>
+        <apex:form id="form">
+            <apex:actionFunction action="{!save1}" name="updateRecords" reRender="dontRerender"/>
+            <apex:inputHidden id="imageURL" value="{!imageURL}" />
+            <apex:inputHidden id="recordId" value="{!recordid}" />
+            <apex:inputHidden id="imageName" value="{!imageName}" />
+            <apex:inputHidden id="rootFolder" value="{!rootFolder}" />
+            <apex:inputHidden id="BucketName" value="{!BucketName}" />
+            <apex:inputHidden id="region" value="{!region}" />
+            <apex:inputHidden id="secretAccessKey" value="{!secretAccessKey}" />
+            <apex:inputHidden id="AccessKeyID" value="{!AccessKeyID}" />
+            <apex:inputHidden id="FolderStructure" value="{!FolderStructure}" />
+            
+        </apex:form> 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+        <style>
+            .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            
+            width: 120px;
+            height: 120px;
+            position:fixed;
+            z-index:9999;
+            animation: spin 2s linear infinite;
+            }
+            
+           
+ 
+            
+            @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+        <body>
+            
+            
+                <div class='container' style='padding-left: 200px;'>
+                    <div id='loaderDiv' class="loader"></div>
+                </div>
+               
+                
+            
+            <div id ="mainContent" class="container bg-light">
+                
+                <form action="#"  method="post" enctype="multipart/form-data" id="uploadForm">
+                    <div class="form-group">
+                        <label for="file">Select a File to Upload in AWS</label>
+                        
+                        
+                        
+                        <div class="slds-form-element">
+                            <span class="slds-form-element__label" id="file-selector-primary-label">Attachment</span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-file-selector slds-file-selector_files">
+                                    <div class="">
+                                        <input type="file" class="slds-file-selector__input slds-assistive-text"  id="file" onchange="fileSelected();" aria-labelledby="file-selector-primary-label file-selector-secondary-label" />
+                                        <label class="slds-file-selector__body" for="file" id="file-selector-secondary-label">
+                                            <span class="slds-file-selector__button slds-button slds-button_neutral">
+                                                <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#upload" />
+                                                </svg>Upload Files</span>
+                                            <span class="slds-file-selector__text slds-medium-show">or Drop Files</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div> 
+                    
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"  id="Upload1" style="width:0%">
+                            <span class="sr-only">20% Complete</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <input type="submit" value="Upload" class="btn btn-primary" id="btn_submit"  /> 
+                    
+                    
+                </form>
+            </div>
+            <div id="successfully" class="container d-none">
+                <span class="oi oi-check"></span>
+                <p class="display-4 text-success">
+                    File Uploaded Successfully
+                </p>
+                
+            </div>
+            <div id="ErrorDisplay" class="container d-none">
+                <p class="display-4 text-danger">
+                    File Upload Failed
+                </p>
+                <p class="text-info" id="ErrorExplanation">
+                    
+                </p>
+            </div>
+        </body>
+        <!-- Aws S3 Upload code -->
+        <script type="text/javascript">
+        
+        document.onreadystatechange = function () {
+  var state = document.readyState
+  if (state == 'interactive') {
+       document.getElementById('mainContent').style.visibility="hidden";
+  } else if (state == 'complete') {
+      setTimeout(function(){
+         document.getElementById('interactive');
+         document.getElementById('loaderDiv').style.visibility="hidden";
+         document.getElementById('mainContent').style.visibility="visible";
+      },1000);
+  }
+}
+        
+        function fileSelected(){
+            
+            $("#btn_submit").click(function(event) {
+                event.preventDefault();
+                AWS.config.update(
+                    {
+                        accessKeyId: document.getElementById('{!$Component.form.accessKeyId}').value,
+                        secretAccessKey: document.getElementById('{!$Component.form.secretAccessKey}').value,
+                        region :document.getElementById('{!$Component.form.region}').value 
+                    }
+                );
+                var bucket = new AWS.S3({
+                    signatureVersion: 'v4',
+                    params: {Bucket: document.getElementById('{!$Component.form.BucketName}').value}}); 
+                var fileChooser = document.getElementById('file');
+                var folderStrucutre = document.getElementById('{!$Component.form.FolderStructure}').value;
+                
+                if(folderStrucutre!=null && folderStrucutre!='')
+                {
+                    folderStrucutre=folderStrucutre+'/';
+                    document.getElementById('{!$Component.form.FolderStructure}').value=folderStrucutre;
+                }
+                var file = fileChooser.files[0];
+                var filename1=file.name;
+                var filetype=file.type;
+                var size=file.size;
+                
+                console.log(JSON.stringify(filetype));
+                if(size<99900000){
+                    var gsize=(size/1000000) + " " + "MB";
+                    
+                    var myString= filename1;
+                    var rootFolder = document.getElementById('{!$Component.form.rootFolder}').value;
+                    if (file) {
+                        
+                        var params = {Key:rootFolder+'/'+folderStrucutre+''+file.name, ContentType: file.type, Body: file, Size: file.size};
+                        
+                        bucket.upload(params).on('httpUploadProgress', function(evt) {
+                            console.log("Uploaded :: " + parseInt((evt.loaded * 100) / evt.total)+'%');
+                            var per=parseInt((evt.loaded * 100) / evt.total)+'%';
+                            document.getElementById("Upload1").style.width=per ;
+                        }).send(function(err, data) {
+                            
+                            if(!err) {
+                                console.log(JSON.stringify(data));
+                                document.getElementById('{!$Component.form.imageURL}').value=""+data.Location;
+                                document.getElementById('{!$Component.form.imageName}').value=filename1;
+                                updateRecords();
+                                var successDisplay = document.getElementById("successfully");
+                                successDisplay.classList.remove("d-none");
+                                var mainDisplay = document.getElementById("mainContent");
+                                mainDisplay.classList.add("d-none");
+                                
+                                
+                            } else{
+                                var errorExplanation = document.getElementById("ErrorExplanation")
+                                errorExplanation.innerHTML=err;
+                                var ErrorDisplay = document.getElementById("ErrorDisplay");
+                                ErrorDisplay.classList.remove("d-none");
+                                var mainDisplay = document.getElementById("mainContent");
+                                mainDisplay.classList.add("d-none");
+                                
+                                
+                            }                              
+                            
+                        });
+                    }
+                    else{
+                        alert('Select File');
+                    }
+                    return false;
+                }
+                else{
+                    alert("File size should not be more than 99 MB");    
+                }
+            });
+            
+            return false;
+        }
+        
+        
+        </script>
+        
+        
+        <!-- Aws S3 upload ends -->
+    </html>
+</apex:page>

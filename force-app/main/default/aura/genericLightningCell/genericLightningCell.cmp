@@ -1,0 +1,52 @@
+<aura:component access="global">
+    <aura:attribute name="record" type="sObject" description="record which is being displayed"/>
+    <aura:attribute name="field" type="Object" description="field object which is being rendered"/>
+    <aura:attribute name="objType" type="String" description="field object which is being rendered"/>
+
+    <aura:attribute name="indexVar" type="Integer"/>
+    
+    <aura:attribute name="cellValue" type="Object"/>
+    <aura:attribute name="cellLabel" type="String"/>
+    <aura:attribute name="isTextField" type="boolean" default="false"/>
+    <aura:attribute name="isReferenceField" type="boolean" default="false"/>
+    <aura:attribute name="isDateField" type="boolean" default="false"/>
+    <aura:attribute name="isDateTimeField" type="boolean" default="false"/>
+    <aura:attribute name="isCurrencyField" type="boolean" default="false"/>
+    <aura:attribute name="isNumber" type="boolean" default="false"/>
+    <aura:attribute name="isBoolean" type="boolean" default="false"/>
+    <aura:attribute name="isPicklistField" type="boolean" default="false"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:if isTrue="{!v.isTextField}">
+        <ui:outputText value="{!v.cellValue}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.isPicklistField}">
+        <ui:outputText value="{!v.cellValue}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.isDateField}">
+        <ui:outputDate value="{!v.cellValue}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.isDateTimeField}">
+        <ui:outputDateTime value="{!v.cellValue}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.isCurrencyField}">
+        <ui:outputCurrency value="{!v.cellValue}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.isNumber}">
+        <ui:outputNumber value="{!v.cellValue}"/>
+    </aura:if>
+    <aura:if isTrue="{!v.isBoolean}">
+        <ui:outputCheckbox value="{!v.cellValue}"/>
+    </aura:if>
+ 
+    
+  
+    <!--<button type="button" onclick="{!c.edit}">Edit</button>
+  
+    
+    <td>
+    <button type="button" onclick="{!c.delete}">Delete</button>
+    </td>-->
+
+</aura:component>

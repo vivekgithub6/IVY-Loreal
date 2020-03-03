@@ -1,0 +1,90 @@
+.THIS .hideContent {
+   display:none;
+}
+.THIS .slds-input {
+    padding-right:5rem;
+    border-radius:0rem !important;
+    
+}
+.THIS .slds-select {
+    padding-right:5rem;
+    border-radius:0rem !important;
+    
+}
+.THIS .slds-modal__footer{
+    background-color:white;
+    border:none;
+}
+.THIS .slds-modal__header{
+    
+}
+.THIS .slds-modal__header{
+    border:none;
+}
+.THIS .slds-modal__close {
+    fill: #00a3ad;
+    width: 3rem;
+    height: 2rem;
+    position: absolute;
+    top: 1rem;
+    right: 0.5rem;
+}
+.THIS .slds-lookup__search-input {
+    
+	
+    width: 464px !important;
+}
+.THIS .slds-icon-text-default {
+    fill:#00a3ad !important;
+}
+.THIS  .create{
+    background-color:#FDCC08 ;
+    font-weight:bold;
+    border: none;
+    border-radius: 0rem;
+    padding-left: 40px;
+    padding-right: 50px;
+    padding-top: 3px;
+    left: -393px;
+    position: -36; 
+    margin-top: -5px;
+    top:-36px;
+}
+.THIS  .update{
+    background-color:#FDCC08 ;
+    font-weight:bold;
+    border: none;
+    border-radius: 0rem;
+    padding-left: 40px;
+    padding-right: 50px;
+    padding-top: 3px;
+    left: -168px;
+    position: -36; 
+    margin-top: -5px;
+    top:-36px;
+}
+
+
+.THIS  .delete{
+    background-color:#d93a1b ;
+    font-weight:bold;
+    border: none;
+    border-radius: 0rem;
+    padding-left: 40px;
+    padding-right: 50px;
+    padding-top: 3px;
+    left: -12rem;
+    position: -36; 
+    margin-top: -5px;
+    top:-36px;
+    color:white;
+}
+.THIS .slds-icon_x-small{
+    width:5rem;
+    color:#00a3ad;
+}
+.THIS .slds-select_container .slds-select{
+    padding-right: 8.5rem !important;
+    padding-left:  0.5rem;
+    border-radius:-0.75rem !important;
+}

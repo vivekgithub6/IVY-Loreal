@@ -1,0 +1,24 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	
+    <aura:attribute name="curntpage" type="Integer" />
+    <aura:attribute name="totalpages" type="Integer" />
+    <aura:attribute name="pagesizeval" type="Integer" />
+    <aura:attribute name="listvalues" type="Integer[]" default="5, 10, 15"/>
+    <aura:attribute name="junctionTable" type="Boolean" default="true"/>
+   
+    
+    <aura:registerEvent name="cmpEvent" type="c:PageSizeEvent"/>
+    <aura:registerEvent name="cmpEventJn" type="c:PageSizeEvent"/>
+    
+    	<div classs="slds-size_1-of-5"><lightning:button label="First" onclick="{!c.firstPage}" disabled="{!(v.curntpage &lt;= 1)}" /></div>&nbsp;&nbsp;
+        <div classs="slds-size_1-of-5"><lightning:button label="Prev" onclick="{!c.prevPage}" disabled="{! (v.curntpage &lt;= 1)}" /></div>&nbsp;&nbsp;
+        <div classs="slds-size_1-of-5"><lightning:button label="Next" onclick="{!c.nextPage}" disabled="{! (v.curntpage >= v.totalpages)  || (v.curntpage == v.totalpages)}" /></div>&nbsp;&nbsp;
+        <div classs="slds-size_1-of-5"><lightning:button label="Last" onclick="{!c.lastPage}" disabled="{! (v.curntpage >= v.totalpages)  || (v.curntpage == v.totalpages)}"/></div>&nbsp;&nbsp;
+		
+    	<div class="slds-size_1-of-7"><ui:inputSelect aura:id="levels" change="{!c.onSelectChange}">
+                <aura:iteration items="{!v.listvalues}" var="level">
+                    <ui:inputSelectOption text="{!level}" label="{!level}"/>
+                </aura:iteration>
+            </ui:inputSelect>
+    	</div>
+</aura:component>

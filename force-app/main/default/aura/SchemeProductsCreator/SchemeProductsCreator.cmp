@@ -1,0 +1,132 @@
+<aura:component controller="JunctionRecordCreatorClass" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="configurationName" type="String"  access="global" />
+    <aura:attribute name="configurationData" type="Object"/><!--store metadata info-->
+    <aura:attribute name="JunctionData" type="Object[]"/>
+    <aura:attribute name="queryRecords" type="sObject[]"/><!--Records to be displayed in the modal table-->
+    <aura:attribute name="searchstring" type="String"/><!--store input string-->
+    <aura:attribute name="recordList" type="Object"/><!--Paginated Records-->
+    <aura:attribute name="columnLabelParent" type="List"/>
+    <aura:attribute name="selectdlist" type="String[]"/>
+    <aura:attribute name="flag" type="boolean" default="false"/>
+    <aura:attribute name="checkRecords" type="boolean" default="false" />
+    
+    <!--attributes for pagination-->
+    <aura:attribute name="pagesize" type="Integer" default="5"/>
+    <aura:attribute name="totalpages" type="Integer" default="1" />
+    <aura:attribute name="totalrecords" type="Integer" default="1" />
+    <aura:attribute name="pageval" type="Integer" default="1"/>
+    
+    <aura:attribute name="pagevalue" type="Integer" default="1"/>
+    <aura:attribute name="junpagesize" type="Integer" default="5"/>
+    <aura:attribute name="juntotalpages" type="Integer" default="1" />
+    <aura:attribute name="juntotalrecords" type="Integer" default="1" />
+    
+    
+    <aura:attribute name="selectedsignature" type="string"/> 
+    <aura:attribute name="selectedbrand" type="string"/> 
+    <aura:attribute name="SignatureValues" type="List" />
+    <aura:attribute name="BrandValues" type="List" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="cmpEvent" event="c:PageSizeEvent" action="{!c.handleCmpEvent}"/>
+    <aura:handler name="cmpEventJn" event="c:PageSizeEvent" action="{!c.handleJunctionRecords}"/>
+    
+    <aura:handler name="change" value="{!v.pageval}" action="{!c.renderPage}"/>
+    <aura:handler name="change" value="{!v.pagevalue}" action="{!c.renderJunctionPage}"/>
+    <div class="slds-card" style="width:100%;height:100%">
+        <div>
+            <lightning:spinner variant="brand" size="large" aura:id="mySpinner"/>
+            
+        </div>
+        <div >
+            <!--page header that displays name of the second parent-->
+            <div class="slds-form-element__group">
+                <div class="slds-m-around--xx-large slds">
+                    <!--adjusting the position of icon for rendering-->
+                    <lightning:layoutItem flexibility="auto" padding="around-small">
+                        <div class="custom-box">
+                            <lightning:select label="{!v.configurationData.Product_Hierarchy_Level_1_Name__c}" value="{!v.selectedsignature}" onchange="{!c.BrandInit1}">       
+                                <!--<option value="">{!v.configurationData.Product_Hierarchy_Level_1_Name__c} List</option>-->
+                                <aura:iteration items="{!v.SignatureValues}" var="item">
+                                    <option value="{!item.ivybase__Internal_Id__c}">
+                                        {!item.Name}
+                                    </option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                    </lightning:layoutItem> 
+                    <lightning:layoutItem flexibility="auto" padding="around-small">
+                        <div class="custom-box">
+                            <lightning:select label="{!v.configurationData.Product_Hierarchy_Level_2_Name__c}" value="{!v.selectedbrand}">       
+                               <!-- <option value="">{!v.configurationData.Product_Hierarchy_Level_2_Name__c} List</option>-->
+                                <aura:iteration items="{!v.BrandValues}" var="item">
+                                    <option value="{!item.ivybase__Internal_Id__c}">
+                                        {!item.Name}
+                                    </option>
+                                </aura:iteration>
+                            </lightning:select>
+                        </div>
+                    </lightning:layoutItem> 
+                    <lightning:button variant="brand" onclick="{!c.showProducts}" ><ui:outputText value="Display"/></lightning:button>
+
+                    <div aura:id="producttable">
+                        <div class="slds-align_absolute-center" >
+                            <c:pagination junctionTable="false" curntpage="{!v.pageval}" totalpages="{!v.totalpages}" pagesizeval="{!v.pagesize}" />
+                            <br/>
+                        </div>
+                        <lightning:input aura:id="searchId" type="search" label="Search" name="search" value="{!v.searchstring}" onchange="{!c.keyChange}"/>
+                        <br/>
+                        <table class="slds-table ">
+                            <thead>
+                                <tr>
+                                     
+                                    <th class="slds-size--2-of-12" scope="col" >
+                                        
+                                        <label class="slds-checkbox">
+                                                        <ui:inputCheckbox aura:id="master" change="{!c.Selectall}" />
+                                                        <span class="slds-checkbox--faux"></span>
+                                                        <span class="slds-form-element__label text"></span>
+                                                    </label>
+                                       
+                                    </th >
+                                    <aura:iteration items="{!v.columnLabelParent }" var="field">
+                                      
+                                        <th> {!field.label}</th>
+                                    </aura:iteration>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{! v.recordList }" var="row">
+                                    <tr>
+                                          
+                                        <td class="slds-size--2-of-12" scope="col">
+                                            <div class="slds-form-element">
+                                                <div class="slds-form-element__control">
+                                                    <label class="slds-checkbox">
+                                                        <ui:inputCheckbox text="{!row.Id}" aura:id="boxPack" value="{!row.select}" change="{!c.onSelection}"/>
+                                                        <span class="slds-checkbox--faux"></span>
+                                                        <span class="slds-form-element__label text"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <aura:iteration items="{! v.columnLabelParent }" var="field">
+                                          
+                                            <td class="slds-size--2-of-12" scope="col">
+                                                <c:genericLightningCell record="{!row}" field="{!field}" objType="parent"/>                                                    
+                                                
+                                            </td>
+                                            
+                                        </aura:iteration>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                    <lightning:button class="slds-button slds-button--brand" onclick="{!c.createjunctionrecords}" label="Create"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

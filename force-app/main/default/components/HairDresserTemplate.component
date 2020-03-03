@@ -1,0 +1,166 @@
+<apex:component controller="HairDresserEmailTemplate" access="global">
+    <apex:attribute name="Contact" type="Id" description="Id of the Contact" assignTo="{!contactId}"/>
+
+
+<html>
+<div align="center">
+<table class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270MsoNormalTable" border="0" cellspacing="3" cellpadding="0" width="0" style="width:412.5pt">
+<tbody>
+<tr>
+<td width="55%" style="width:55%;padding:0.75pt">
+<div align="center">
+<table class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270MsoNormalTable" border="0" cellspacing="3" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding:0.75pt">
+<div align="center">
+<table class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270MsoNormalTable" border="0" cellspacing="3" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding:0.75pt">
+<p class="MsoNormal" style="margin-bottom:12pt"><b><span style="font-family:&quot;Calibri Light&quot;,sans-serif">Dear</span></b><span style="font-family:&quot;Calibri Light&quot;,sans-serif">
+<b><span style="color:black">
+<apex:repeat value="{!ContactDetails}" var="c">
+{!c.Name}
+</apex:repeat>
+</span>,</b> <u></u><u></u></span></p>
+</td>
+</tr>
+<tr>
+<td style="padding:0.75pt">
+<p class="MsoNormal" style="line-height:15pt"><span style="font-family:&quot;Calibri Light&quot;,sans-serif">We're so pleased you've agreed to join<span style="color:rgb(31,73,125)">
+</span>this new adventure together with us, there's so much here for you to look forward.<br/>
+<br/>
+Start preparing for your next adventure as we connect you to a new world out. You will soon be able to explore more, connect exclusively, learn explicitly and many more. Please be connected with L’Oreal sales partner in your area to be known and aware of the
+ great benefits that await<span style="color:rgb(31,73,125)">s</span> you. <u></u><u></u></span></p>
+<p class="MsoNormal" style="line-height:15pt"><span style="font-family:&quot;Calibri Light&quot;,sans-serif"><u></u>&nbsp;<u></u></span></p>
+<p class="MsoNormal" style="line-height:15pt"><span style="font-family:&quot;Calibri Light&quot;,sans-serif">Be tuned and be connected.
+</span><b><i><span style="font-size:11pt;font-family:Calibri,sans-serif;color:rgb(31,73,125)"><u></u><u></u></span></i></b></p>
+<p class="MsoNormal" style="line-height:15pt"><span style="font-family:&quot;Calibri Light&quot;,sans-serif">Your social connection shared are :<span style="color:rgb(31,73,125)"><u></u><u></u></span></span></p>
+</td>
+</tr>
+<tr>
+<td style="padding:0.75pt">
+<div align="center">
+<table class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270MsoNormalTable" border="0" cellspacing="3" cellpadding="0" width="0" style="width:232.5pt">
+<tbody>
+<tr style="height:45pt">
+<td style="padding:0.75pt;height:45pt">
+<p class="MsoNormal"><a href="http://blog.virgin-atlantic.com/t5/Blog-Home-Page/ct-p/Cat1" title="vtravelled." target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://blog.virgin-atlantic.com/t5/Blog-Home-Page/ct-p/Cat1&amp;source=gmail&amp;ust=1542981419219000&amp;usg=AFQjCNGyxYsK94FPZmzZQHzVkOtUPiyjaQ"><span style="text-decoration:none"><img border="0" width="38" height="38" style="width:0.4in;height:0.4in" id="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270_x0000_i1140" src="https://ci4.googleusercontent.com/proxy/a1HAWrD2jiIxl1FIRiGUmk7zNbwnq_kKtUR2ZbNaAK19WuGtiSJyoyRKqavJyZf47oz4pY_jKDCBo9OAYLTs6-404axNw0Gt5i2Qxk9cMDoNmfs=s0-d-e1-ft#https://www.virginatlantic.com/content/dam/vaa/email/vTravel.gif" alt="vtravelled." class="CToWUd"></img></span></a><u></u><u></u></p>
+</td>
+<td style="padding:0.75pt;height:45pt">
+<p class="MsoNormal"><a href="http://twitter.com/VIRGINATLANTIC" title="Twitter." target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://twitter.com/VIRGINATLANTIC&amp;source=gmail&amp;ust=1542981419219000&amp;usg=AFQjCNFV0XBhizloaVSNe0QzyRuHWTy9dw"><span style="text-decoration:none"><img border="0" width="38" height="38" style="width:0.4in;height:0.4in" id="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270_x0000_i1139" src="https://ci5.googleusercontent.com/proxy/jAHtOBxi1OAv10M2FMbBCFYYs4FWxmyEVEN_2X-KSlWW_YD5Xeb4N8xKiYqtKsDbYjzV390LrJAIn83ne-97rqrcLq7QxENFe58IVxqlvH0zHUE=s0-d-e1-ft#https://www.virginatlantic.com/content/dam/vaa/email/twitter.gif" alt="Twitter." class="CToWUd"></img></span></a><u></u><u></u></p>
+</td>
+<td style="padding:0.75pt;height:45pt">
+<p class="MsoNormal"><a href="http://www.facebook.com/virginatlantic" title="Facebook." target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://www.facebook.com/virginatlantic&amp;source=gmail&amp;ust=1542981419219000&amp;usg=AFQjCNG36T2gPMT4NtJxv93zI_7VFTQX7Q"><span style="text-decoration:none"><img border="0" width="38" height="38" style="width:0.4in;height:0.4in" id="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270_x0000_i1138" src="https://ci4.googleusercontent.com/proxy/4iGbCyVmM45eowt6FRyPt6-nLaZ8pPoiUnoD3SHfe2lZMFQJzprenioPRR0k9I7hXcPxPf1cgzZu7DPy9RR6dYsHi8_weLTXFQh_QbfknlBPuDO4=s0-d-e1-ft#https://www.virginatlantic.com/content/dam/vaa/email/faceBook.gif" alt="Facebook." class="CToWUd"></img></span></a><u></u><u></u></p>
+</td>
+<td style="padding:0.75pt;height:45pt">
+<p class="MsoNormal"><a href="https://www.youtube.com/user/virginatlantic" title="YouTube." target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://www.youtube.com/user/virginatlantic&amp;source=gmail&amp;ust=1542981419219000&amp;usg=AFQjCNESGmURzRYVhJyF78PYcE2jAq7EiA"><span style="text-decoration:none"><img border="0" width="38" height="38" style="width:0.4in;height:0.4in" id="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270_x0000_i1137" src="https://ci4.googleusercontent.com/proxy/_DzvBIxtawxYpTOhEdOMq_1sAcZyD-Y1vRQsOPQTAbUN-nLuLxO0uGx4ftzT5GMNTLZVkNzYs0VBKbbk0w0gt70GN4Iml5_uvH9FYqGwUtXT6hY=s0-d-e1-ft#https://www.virginatlantic.com/content/dam/vaa/email/youTube.gif" alt="YouTube." class="CToWUd"></img></span></a><u></u><u></u></p>
+</td>
+<td style="padding:0.75pt;height:45pt">
+<p class="MsoNormal"><a href="http://www.pinterest.com/thisisvirginatlantic" title="Pinterest." target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://www.pinterest.com/thisisvirginatlantic&amp;source=gmail&amp;ust=1542981419220000&amp;usg=AFQjCNHDl9geplXU3EwxprX6TNtx_oGt2g"><span style="text-decoration:none"><img border="0" width="38" height="38" style="width:0.4in;height:0.4in" id="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270_x0000_i1136" src="https://ci5.googleusercontent.com/proxy/o2sv9msPQtjWMxM13mf8ACK5wPn2-dGUNpL64QqMKRTlSUbyDMUJpZWeHX0XKme8Y_HXQFOvgk3B4KopHFd54FyjahZvuzGRIuvam71fuhCAc_aG_Q=s0-d-e1-ft#https://www.virginatlantic.com/content/dam/vaa/email/pinterest.png" alt="Pinterest." class="CToWUd"></img></span></a><u></u><u></u></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="MsoNormal" style="margin-bottom:12pt"><span style="font-family:&quot;Calibri Light&quot;,sans-serif">Thank you once again for accepting* to join.<u></u><u></u></span></p>
+</td>
+</tr>
+<tr>
+<td style="padding:0.75pt;border-radius:5px">
+<table class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="0" style="width:159.7pt;background:rgb(208,206,206)">
+<tbody>
+<tr style="height:13.15pt">
+<td style="padding:9pt 13.5pt;height:13.15pt;display:inline-block">
+<p class="MsoNormal"><span style="font-family:&quot;Calibri Light&quot;,sans-serif;color:black">
+<apex:repeat value="{!ContactDetails}" var="c">
+<img  src="{!c.Signature_Link__c}" alt="SignatureTemplate" height="70" width="180">
+</img>
+</apex:repeat>
+<u></u><u></u></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+<td width="32%" valign="top" style="width:32%;padding:15pt 0.75pt 0.75pt 15pt">
+<div align="center">
+<table class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270MsoNormalTable" border="0" cellspacing="3" cellpadding="0" width="100%" style="width:100%">
+<tbody>
+<tr>
+<td style="padding:0.75pt"></td>
+</tr>
+<tr>
+<td style="background:rgb(213,213,213);padding:0.75pt">
+<div align="center">
+<table class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270MsoNormalTable" border="0" cellspacing="3" cellpadding="0">
+<tbody>
+<tr>
+<td style="padding:0.75pt">
+<p class="MsoNormal"><strong><span style="font-size:14pt;font-family:&quot;Calibri Light&quot;,sans-serif;color:red">Account Details</span></strong><span style="font-family:&quot;Calibri Light&quot;,sans-serif"><u></u><u></u></span></p>
+</td>
+</tr>
+<tr>
+<td style="padding:0.75pt">
+<p class="MsoNormal"><span class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270m8121606120652486435c6"><span style="font-family:&quot;Calibri Light&quot;,sans-serif">Name</span></span><span style="font-family:&quot;Calibri Light&quot;,sans-serif"><br/>
+<span class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270m8121606120652486435c2"><span style="color:rgb(204,0,0)">
+<apex:repeat value="{!ContactDetails}" var="c">
+{!c.Account.name}
+</apex:repeat>
+</span></span>
+<u></u><u></u></span></p>
+</td>
+</tr>
+<tr>
+<td style="padding:0.75pt"></td>
+</tr>
+<tr>
+<td style="padding:0.75pt">
+<p class="MsoNormal"><span class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270m8121606120652486435c6"><span style="font-family:&quot;Calibri Light&quot;,sans-serif">Contact Number:</span></span><span style="font-family:&quot;Calibri Light&quot;,sans-serif"><br/>
+<span class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270m8121606120652486435c2"><span style="color:rgb(204,0,0)">
+<apex:repeat value="{!ContactDetails}" var="c">
+{!c.Account.ivybase__Contact_PhoneNo__c}
+</apex:repeat>
+</span></span>
+<u></u><u></u></span></p>
+</td>
+</tr>
+<tr>
+<td style="padding:0.75pt">
+<p class="MsoNormal"><span class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270m8121606120652486435c6"><span style="font-family:&quot;Calibri Light&quot;,sans-serif">Email Address:</span></span><span style="font-family:&quot;Calibri Light&quot;,sans-serif"><br/>
+<span class="m_3315624551598792502m_4368577874588796698m_6710803613366399273gmail-m_-4440118685191617009m_3588077350539815270m8121606120652486435c2"><span style="color:rgb(204,0,0)"><a href="mailto:abcd@yahoo.com" target="_blank">
+<apex:repeat value="{!ContactDetails}" var="c">
+{!c.Account.ivybase__Contact_Email__c}
+</apex:repeat>
+</a></span></span>
+<u></u><u></u></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</html>
+
+
+</apex:component>

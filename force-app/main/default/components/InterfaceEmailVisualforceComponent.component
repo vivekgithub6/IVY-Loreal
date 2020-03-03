@@ -1,0 +1,86 @@
+<apex:component access="global">
+    <apex:attribute name="InterfaceId" type="Interface_Run__c" description="Id of the Interface" />
+    
+    <html> 
+        
+        <style>
+            table, th, td {
+            border: 3px solid black;           
+            }
+        </style>
+        Hi,<br/><br/>
+        The below fields contains interface run information<br/><br/>       
+        <apex:outputPanel rendered="{!NOT(ISBLANK(InterfaceId.Error_Message__c))}">
+            <table style="width:40%;">
+                <tr> 
+                    <td>Interface Name</td>
+                    <td>:</td>
+                    <td>{!InterfaceId.Name}</td>
+                </tr>
+                <tr>
+                    <td>Error Message</td>
+                    <td>:</td>
+                    <td>{!InterfaceId.Error_Message__c}</td>
+                </tr>
+            </table>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!ISBLANK(InterfaceId.Error_Message__c)}">
+            
+            <table style="width:30%;">
+                
+                <tr> 
+                    <td>Interface Name</td>
+                    <td>:</td>
+                    <td>{!InterfaceId.Name}</td>
+                </tr>
+                
+                <tr> 
+                    <td>Total Rows</td>
+                    <td>:</td>
+                    <td>{!Text(InterfaceId.Total_Rows__c)}</td>
+                </tr>
+                
+                <apex:outputPanel rendered="{!(InterfaceId.Name!='OrderOutBound')}"> 
+                    <tr>
+                        
+                        <td>Processed Rows</td>
+                        <td>:</td>
+                        <td>{!Text(InterfaceId.Processed_Rows__c)}</td>
+                    </tr>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!(InterfaceId.Name!='OrderOutBound')}"> 
+                    <tr > 
+                        <td>Error Rows</td>
+                        <td>:</td>
+                        <td>{!Text(InterfaceId.Error_Rows__c)}</td>
+                    </tr>
+                </apex:outputPanel>
+                 
+                <apex:outputPanel rendered="{!(InterfaceId.Name!='OrderOutBound')}"> 
+                    <tr> 
+                        <td>Rejected Rows</td>
+                        <td>:</td>
+                        <td>{!Text(InterfaceId.Rejected_Rows__c)}</td>
+                    </tr>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!(InterfaceId.Name!='OrderOutBound')}"> 
+                    <tr>
+                        <td>Duplicate Rows</td>
+                        <td>:</td>
+                        <td>{!Text(InterfaceId.Duplicate_Rows__c)}</td>
+                    </tr>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!(InterfaceId.Name!='OrderOutBound')}"> 
+                    <tr > 
+                        <td>Date and Time</td>
+                        <td>:</td>
+                        <td>{!Text(InterfaceId.Interface_Run_Date_Time__c)}</td>
+                    </tr>
+                </apex:outputPanel>
+       
+            </table>
+           
+        </apex:outputPanel>
+        
+    </html>
+</apex:component>

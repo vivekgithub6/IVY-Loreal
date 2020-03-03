@@ -1,0 +1,123 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" showChat="false" showQuickActionVfHeader="false" standardStylesheets="false" standardController="Interface_Run__c" setup="false" extensions="ViewJobFileController" lightningStylesheets="true" >
+   <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="x-ua-compatible" content="ie=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <!-- Import the Design System style sheet -->
+            <apex:slds />
+
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+           
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.12.min.js"></script>
+            
+        </head>
+        <apex:form id="form">
+           
+          
+            <apex:inputHidden id="recordId" value="{!recordid}" />
+            <apex:inputHidden id="imageName" value="{!imageName}" />
+            <apex:inputHidden id="rootFolder" value="{!rootFolder}" />
+            
+            <apex:inputHidden id="BucketName" value="{!BucketName}" />
+            <apex:inputHidden id="region" value="{!region}" />
+            <apex:inputHidden id="secretAccessKey" value="{!secretAccessKey}" />
+            <apex:inputHidden id="AccessKeyID" value="{!AccessKeyID}" />
+           
+           
+        </apex:form> 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous"/>
+        <style>
+            .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            
+            width: 120px;
+            height: 120px;
+            position:fixed;
+            z-index:9999;
+            animation: spin 2s linear infinite;
+            }
+            @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            }
+        </style>
+        
+        
+        <body >
+            <input type="submit" value="Download ZipFile" class="btn btn-primary" id="btn_submit"  />
+           <a id="myButton" href="#" style="visibility: hidden">Download ZipFile</a>
+        </body>
+        <!-- Aws S3 Upload code -->
+        <script type="text/javascript">
+       var data1;
+         document.getElementById('btn_submit').onclick =function()       
+    { 
+            //  event.preventDefault();
+            
+       if(document.getElementById('{!$Component.form.rootFolder}').value)
+           {
+            AWS.config.update(
+                {
+                   
+                    //alert({!$Component.form.accessKeyId});
+                    accessKeyId: document.getElementById('{!$Component.form.accessKeyId}').value,
+                    secretAccessKey: document.getElementById('{!$Component.form.secretAccessKey}').value,
+                    region :document.getElementById('{!$Component.form.region}').value 
+                }
+            );
+             var bucket = new AWS.S3({
+                signatureVersion: 'v4',
+                params: {Bucket: document.getElementById('{!$Component.form.BucketName}').value}}); 
+           // alert(document.getElementById('{!$Component.form.rootFolder}').value);
+            var rootFolder = document.getElementById('{!$Component.form.rootFolder}').value;
+           
+                
+            var params = {Key:rootFolder};
+            
+            bucket.getObject(params, function(err, data) {
+                if (err) console.log(err, err.stack); // an error occurred
+                else   
+                    console.log(data);           // successful response
+  
+      var sortedKeys = Object.keys(data).sort();
+                // var opp = data[Object.keys(data)[4]];
+                var opp = data["Body"];
+                console.log(opp);
+                data1=opp;
+                //var string = new TextDecoder("utf-8").decode(opp);
+                 document.getElementById('myButton').click();
+               
+            });
+   }
+             else
+                 {
+                     alert("There is no related file");    
+                     }
+        };
+     document.getElementById('myButton').onclick = function(event){
+
+         //alert(data1);
+    blob = new Blob([data1], {type: "application/zip"});
+        
+    url = window.URL.createObjectURL(blob);
+  
+  	this.href = url;
+         this.target = '_blank';
+  	
+  	// target filename
+    this.download = document.getElementById('{!$Component.form.rootFolder}').value;
+  }
+
+        </script>
+        
+        <!-- Aws S3 upload ends -->
+    </html>
+
+</apex:page>

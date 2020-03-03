@@ -1,0 +1,255 @@
+<aura:component controller="schemeapplyorderabsyz" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="Scheme" Type="ivydsd__Scheme__c[]"/>
+    <aura:attribute name="Division" Type="Division__c[]"/>
+    <aura:attribute name="Schemegroup" Type="ivydsd__Scheme_Group__c[]"/>
+    <aura:attribute name="searchstring" type="String"/>
+    <aura:attribute name="Schemegroupwrapper" Type="schemeapplyorderabsyz.schemegroupproductwrapperClass[]"/>
+    <aura:attribute name="schemefreegrpwrapper" Type="schemeapplyorderabsyz.schemegetgroupproductwrapperClass"/>
+    <aura:attribute name="show" type="Boolean" default="False"/>
+    <aura:attribute name="showfree" type="Boolean" default="False"/>
+    <aura:attribute name="schemeid" type="Id"/>
+    <aura:attribute name="Schemegetgroup" Type="ivydsd__Scheme_Group__c[]"/>
+    <aura:attribute name="promotionQuantity" type="Decimal" default="0"/>
+    <aura:attribute name="promotionchangeQuantity" type="Decimal" default="0" />
+    <aura:handler value="{!this}" name="init" action="{!c.doinit}" />
+   <!-- <lightning:spinner aura:id="mySpinner" variant="brand" size="large" class="slds-hide" />-->
+    
+    <lightning:card title="" >
+        <div class="slds-text-body_large slds-text-align_center" style="font-size:30px;color:lightseagreen;">
+          
+        </div>
+        <div class="slds-brand-band slds-brand-band_small">
+            
+            <lightning:layout horizontalAlign="Center">
+                <lightning:layoutItem flexibility="auto" size="4" padding="around-small">
+                    <lightning:select title="SelectScheme" aura:id="Schemeid" name="SelectScheme" label="Select Promotion" required="true">
+                        <option value="none">--None--</option>
+                        <aura:iteration items="{!v.Scheme}" var="Scheme">
+                            <option value="{!Scheme.Id}">{!Scheme.Name}</option>
+                        </aura:iteration>
+                    </lightning:select>
+                </lightning:layoutItem>      
+            </lightning:layout> 
+            
+            <lightning:layout horizontalAlign="center">
+                <lightning:layoutItem flexibility="auto" padding="around-large" >   
+                    <lightning:button aura:id="submit" type="submit" label="Show details" onclick="{!c.ShowDetails}"  />
+                </lightning:layoutItem>
+            </lightning:layout>
+            
+        </div>
+    </lightning:card>
+    
+    <aura:if isTrue="{!v.show}">  
+        <lightning:card title="Promotion Buy Products" >
+            <lightning:input class="slds-col slds-size_1-of-3" name=" promotion Apply" type="number" value="{!v.promotionQuantity}"  label="Promotion Quantity" onchange="{!c.setval}"/>
+            <div >
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+               <thead>
+               <div>
+                     <tr id ="{!index}">
+                        
+                                <th class="slds-text-title_caps ">S.No</th>
+                         		<th class="slds-text-title_caps " > Promotion Logic</th>
+                                <th class="slds-text-title_caps " >Group Name</th>
+                         		<th class="slds-text-title_caps " > Qty</th>
+                         <th class="slds-text-title_caps" > Group Logic</th>
+                        
+                    </tr>
+                   </div>
+                 
+                </thead>
+                <tbody >
+                    <aura:iteration items="{!v.Schemegroupwrapper }" var="schemegrp" indexVar="index">
+                        <div> 
+                            <tr>
+                                <td>{!index}</td>
+                                <td>{!schemegrp.promobuyloic}</td>
+                                <td>{!schemegrp.ProGrpName}</td>
+                                <td>{!schemegrp.slabtargetMin}</td>
+                                <td>{!schemegrp.ProGrpLogic}</td>  
+                            </tr>
+                            <aura:iteration items="{!schemegrp.ProGrpPrdcts}" var="schemegrp1" indexVar="index">
+                                <tr>
+                                    
+                                    <td></td>
+                                    <td>Product Name</td>
+                                    <td>Total Qty</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>{!schemegrp1.ProdctName}</td> 
+                                    
+                                    <aura:if isTrue="{!schemegrp.promobuyloic=='AND'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='AND'}">
+                                  <td><ui:inputNumber  value="{!schemegrp1.qty}"  disabled="true"/></td>
+									 <!--<c:test2 schemegrp="{!schemegrp}" promotionQuantity1="{!v.promotionchangeQuantity}" Inputshow1="True" Inputshow="False"/> -->
+                                        </aura:if>
+                                    </aura:if>
+                                     <aura:if isTrue="{!schemegrp.promobuyloic=='AND'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='ANY'}">
+                                      <td><ui:inputNumber  value="{!schemegrp1.qty}"  /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                    <aura:if isTrue="{!schemegrp.promobuyloic=='ANY'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='AND'}">
+                                       <td><ui:inputNumber  value="{!schemegrp1.qty}"  /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}" promotionQuantity1="{!v.promotionchangeQuantity}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                    <aura:if isTrue="{!schemegrp.promobuyloic=='ANY'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='ANY'}">
+                                      <td><ui:inputNumber  value="{!schemegrp1.qty}" /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                </tr>
+                            </aura:iteration>
+                       <!--startedPROD HIR-->
+                            <aura:if isTrue="{!schemegrp.prodhirrecsID!=null}">
+                             <lightning:input aura:id="searchId" type="search" label="Search" name="search" value="{!v.searchstring}" onchange="{!c.keyChange}"/>
+                          <div class="slds-table--header-fixed_container slds-scrollable" style="width: 100%; height:342px;">
+                                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-table--header-fixed">
+                              <tbody >
+                              <tr>
+                               <td></td>
+                               <td>Product Name</td>
+                                <td>Total Qty</td>
+                                </tr>
+                                <aura:iteration items="{!schemegrp.prodhirrecs}" var="schemegrphirarchy" indexVar="index">
+                                
+                                
+                                <tr>
+                                    <td><ui:inputCheckbox value="{!schemegrphirarchy.prodcheckBool}"/></td>
+                                    <td>{!schemegrphirarchy.ProdName	}</td> 
+                                    
+                                    <aura:if isTrue="{!schemegrp.promobuyloic=='AND'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='AND'}">
+                                  <td><ui:inputNumber  value="{!schemegrphirarchy.quantity}"  disabled="true"/></td>
+									 <!--<c:test2 schemegrp="{!schemegrp}" promotionQuantity1="{!v.promotionchangeQuantity}" Inputshow1="True" Inputshow="False"/> -->
+                                        </aura:if>
+                                    </aura:if>
+                                     <aura:if isTrue="{!schemegrp.promobuyloic=='AND'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='ANY'}">
+                                      <td><ui:inputNumber  value="{!schemegrphirarchy.quantity}"  /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                    <aura:if isTrue="{!schemegrp.promobuyloic=='ANY'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='AND'}">
+                                       <td><ui:inputNumber  value="{!schemegrphirarchy.quantity}"  /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}" promotionQuantity1="{!v.promotionchangeQuantity}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                    <aura:if isTrue="{!schemegrp.promobuyloic=='ANY'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='ANY'}">
+                                      <td><ui:inputNumber  value="{!schemegrphirarchy.quantity}" /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                </tr>
+                            </aura:iteration>
+                                  </tbody> 
+                              </table>
+                            </div>
+                                </aura:if>
+                        </div>
+                    </aura:iteration>
+                </tbody>
+            </table>
+            </div>
+                <lightning:layout horizontalAlign="Left">
+                <lightning:layoutItem flexibility="auto" padding="around-large" >   
+                    <lightning:button aura:id="submit" type="submit" label="Apply Free Products" onclick="{!c.ApplyPromotion}"  />
+                </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:card>
+    </aura:if>  
+    
+   <aura:if isTrue="{!v.showfree}">  
+        <lightning:card title="Promotion Free Products" >
+            <!--<lightning:input class="slds-col slds-size_1-of-3" name="promotionQuantity" type="number" value="{!v.promotionQuantity}"  label="Promotion Quantity" onchange="{!c.setval}"/>-->
+            
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                <tbody><div>
+                     <tr id ="{!index}">
+                                <th class="slds-text-title_caps">S.No</th>
+                         		<th class="slds-text-title_caps" > Promotion Logic</th>
+                                <th class="slds-text-title_caps" >Group Name</th>
+                         			<th class="slds-text-title_caps" > Qty</th>
+                         <th class="slds-text-title_caps" > Group Logic</th>
+                            </tr>
+                    </div>
+                    <aura:iteration items="{!v.schemefreegrpwrapper }" var="schemegrp" indexVar="index">
+                        <div>
+                           
+                            <tr>
+                                <td>{!index}</td>
+                                <td>{!schemegrp.promogetlogic}</td>
+                                <td>{!schemegrp.ProGrpName}</td>
+                                <aura:if isTrue="{!schemegrp.Maxfreeqty!=null}" >
+                                    <td>{!schemegrp.Maxfreeqty}</td>
+                                    <aura:set attribute="else" >
+                                        <td>{!schemegrp.ValueWorth}</td>
+                                    </aura:set>
+                                    
+                                </aura:if>
+                              
+                                <td>{!schemegrp.ProGrpLogic}</td>  
+                            </tr>
+                            <aura:iteration items="{!schemegrp.ProGrpPrd}" var="schemegrp1" indexVar="index">
+                                <tr>
+                                    
+                                    <td></td>
+                                    <td>Product Name</td>
+                                    <td>Total Qty</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>{!schemegrp1.ivydsd__Product__r.Name}</td> 
+                                    
+                                    <aura:if isTrue="{!schemegrp.promogetlogic=='AND'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='AND'}">
+                                  <td><ui:inputNumber  value="{!schemegrp1.Qty__c}"  disabled="true"/></td>
+									 <!--<c:test2 schemegrp="{!schemegrp}" promotionQuantity1="{!v.promotionchangeQuantity}" Inputshow1="True" Inputshow="False"/> -->
+                                        </aura:if>
+                                    </aura:if>
+                                     <aura:if isTrue="{!schemegrp.promogetlogic=='AND'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='ANY'}">
+                                      <td><ui:inputNumber  value="{!schemegrp1.Qty__c}"  /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                    <aura:if isTrue="{!schemegrp.promogetlogic=='ANY'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='AND'}">
+                                       <td><ui:inputNumber  value="{!schemegrp1.Qty__c}"  /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}" promotionQuantity1="{!v.promotionchangeQuantity}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                    <aura:if isTrue="{!schemegrp.promogetlogic=='ANY'}">
+                                         <aura:if isTrue="{!schemegrp.ProGrpLogic=='ANY'}">
+                                      <td><ui:inputNumber  value="{!schemegrp1.Qty__c}" /></td>
+                                        <!--<c:test2 schemegrp="{!schemegrp}"  Inputshow1="False" Inputshow="True"/>-->
+                                        </aura:if>
+                                    </aura:if>
+                                </tr>
+                            </aura:iteration>
+                            
+                        </div>
+                    </aura:iteration>
+                </tbody>
+            </table>
+            <lightning:layout horizontalAlign="Left">
+                <lightning:layoutItem flexibility="auto" padding="around-large" >   
+                    <lightning:button aura:id="submit" type="submit" label="Create Order" onclick="{!c.createorder}"  />
+                </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:card>
+    </aura:if>   
+    
+    
+    
+    
+    
+</aura:component>

@@ -1,0 +1,32 @@
+.THIS .myCalendar .nao-month td {
+   /* padding: 15px; */
+}
+.THIS td{
+    font-size:smaller;
+}
+.THIS th {
+    
+    font-size:smaller;
+}
+
+.THIS.myCalendar .month-head>button {
+    padding: 15px;
+}
+.THIS .today
+{
+    border-radius:80%;
+    background-color: black;
+    width: 1%;
+    color: white;
+    box-shadow:none !important;
+}
+.THIS .ic-target{
+    display:none !important; 
+}
+
+.THIS td::before {
+    content:none !important; 
+}
+.THIS .month-head div  {
+    font-size:small 
+}

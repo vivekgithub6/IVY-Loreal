@@ -1,0 +1,14 @@
+<aura:component implements="force:appHostable" >
+    
+    <aura:attribute name = "selectedManagerRecord" type = "sObject" default = "{}" />
+    <aura:attribute name = "selectedrepRecord" type = "sObject" default = "{}" /> <!-- To store Seleted Search -->
+    Manager
+    <c:CustomSerachComponent objectAPIName = "ivybase__Resource__c"  IconName = "standard:avatar" label = "Manager Name" selectedRecord = "{!v.selectedManagerRecord}" resourceType = "Manager"/>
+    
+    Rep Search
+    <c:CustomSerachComponent objectAPIName = "ivybase__Resource__c"  IconName = "standard:individual" label = "Rep Name" selectedRecord = "{!v.selectedrepRecord}" resourceType = "Sales Rep"/>
+    
+    <button class="slds-button slds-button_brand" onclick="{!c.getValues}">Get Selected Values</button>    
+    
+    
+</aura:component>

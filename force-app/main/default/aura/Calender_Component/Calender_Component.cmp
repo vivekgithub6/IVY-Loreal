@@ -1,0 +1,173 @@
+<aura:component  controller="CalenderController" implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasSObjectName,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >              
+    <ltng:require styles="{!join(',',
+                          $Resource.fullcalendar_390     + '/fullcalendar390/fullcalendar.css'
+                          )}"
+                  
+                  scripts="{!join(',',
+                           $Resource.fullcalendar_390  + '/fullcalendar390/lib/jquery.min.js',                           
+                           $Resource.fullcalendar_390  + '/fullcalendar390/lib/jquery-ui.min.js',
+                           $Resource.fullcalendar_390  + '/fullcalendar390/lib/moment.min.js',
+                           $Resource.fullcalendar_390  + '/fullcalendar390/fullcalendar.js'
+                           )}"
+                  afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    
+    <!--    $Resource.moment_timezone   + '/moment-js-withdata.js', -->
+    
+    <aura:attribute name="edit" type="Boolean" default="false"/>
+    <aura:attribute name="create" type="Boolean" default="false"/>
+    <aura:attribute name="createloader" type="Boolean" default="false"/>
+    <aura:attribute name="istask" type="boolean" default="false"/>
+    <aura:attribute name="isevent" type="boolean" default="false"/>
+    <aura:attribute name="isappointment" type="boolean" default="false"/>
+    
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="datetime" type="list" />
+    <aura:attribute name="eventlist" type="list" />
+    <aura:attribute name="TaskRecords" type="Object" />
+    <aura:attribute name="EventRecords" type="Object" />
+    <aura:attribute name="AppointmentRecords" type="Object" />
+    
+    <aura:attribute name = "selectedManagerRecord" type = "sObject" default = "{}" />
+    <aura:attribute name = "selectedrepRecord" type = "sObject" default = "{}" /> <!-- To store Seleted Search -->
+    
+    <aura:attribute name = "jpActivityList" type="Object[]"/>
+    <aura:attribute name = "childjpActivity" type ="Object" />
+    
+    
+    
+    <aura:attribute name="datetimer" type="Date" />
+    <aura:attribute name="dayclick" type="Boolean" default="false"/>
+    <aura:attribute name="Apprecordid" type="string" />
+    <aura:attribute name="ShowCalendar" type="Boolean" default="true"/>
+    <aura:attribute name="taskvisible" type="Boolean" default="false"/>
+    <aura:attribute name="Addnew" type="Boolean" default="false"/>
+    
+    
+    <aura:attribute name="ObjectName" type="String" default="Task" access="global"/>  <!-- Field Name as String-->
+    <aura:attribute name="Type" type="String" default="Type" access="global"/>  <!-- Field Name as String-->
+    <aura:attribute name="Subject" type="String" default="Subject" access="global"/> <!-- Field Name as String-->
+    <aura:attribute name="Status" type="String" default="Status" access="global"/> <!-- Field Name as String-->
+    <aura:attribute name="Priority" type="String" default="Priority" access="global"/>  <!-- Field Name as String-->
+    
+    <aura:attribute name="uservalue" type="String" /> 
+    <aura:attribute name="SubjectPicklist" type="String[]" /> 
+    <aura:attribute name="StatusPicklist" type="String[]" /> 
+    <aura:attribute name="TypePicklist" type="String[]" /> 
+    <aura:attribute name="PriorityPicklist" type="String[]" /> 
+    <aura:attribute name="Tasks" type="Object[]" />
+    
+    
+    <aura:attribute name="value" type="List" default="option1"/>
+    <aura:attribute name="loadspinner" type="boolean" default="false"/>
+    <aura:attribute name="isspinner" type="Boolean" default="false"/>
+    <aura:attribute name="taskbar" type="boolean" default="true" />
+    <aura:attribute name="mustdobar" type="boolean" default="true" />
+    <aura:attribute name="rosterbar" type="boolean" default="true" />
+    <aura:attribute name="appointmentbar" type="boolean" default="true" />
+    <aura:attribute name="dispCal" type="boolean" default="false"/>
+    <aura:attribute name="UpdateTask" type="boolean"/>
+    <aura:attribute name="TaskCreateButton" type="boolean"/>
+    <aura:attribute name="UpdateEvent" type="boolean" default="false"/>
+    <aura:attribute name="EventCreateButton" type="boolean" default="true"/>
+    <aura:attribute name="AppointmentCreateButton" type="boolean" default="true"/>
+    
+    <!-- Event from Month View calendar -->
+    <aura:attribute name="MonthViewDate" type="DateTime"/>
+    <aura:handler name="DateFromCalendar" event="c:MonthCalendarDate"  action="{!c.handleDateEvent}"/>
+    <aura:handler name="closeCalenderModal" event="c:CloseModal" action="{!c.closeModal}"/>
+    
+    <aura:if isTrue="{!v.isspinner}">
+        <lightning:spinner alternativeText="Loading" size="large" />
+    </aura:if>
+    <aura:if isTrue="{!v.loadspinner}">
+        <lightning:spinner aura:id="mySpinner" alternativeText="Loading.." title="Loading.." variant="brand" size="large" class="slds-hide"/>
+    </aura:if>
+    
+    <aura:if isTrue="{!v.dayclick}">
+        
+        <div class="slds-show" aura:id="Recmodal"> 
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" onclick="{!c.CloseNavigationModal}">
+                <div class="slds-modal__container "  style="width:100%;height:100%;left:15% !important; bottom:-10% !important;">                   
+                    <!--###### MODAL BOX BODY Part ######-->
+                    
+                    <!-- ## OnClick of AddNew Button - Task,Appointment and event Button Popup  ## -->
+                    
+                    <div class="slds-modal__content navigationitems slds-p-around_medium slds-box slds-box_xx-small" style="width:240px;" id="modal-content-id-1">
+                        <div class="AppointmentItems">
+                            <lightning:button class="AppointmentItem" label="Appointment"  iconPosition="right"    onclick="{!c.createappointment}" />  
+                        </div>
+                        <div  class="TaskItems">  
+                            <lightning:button class="TaskItem" label="Task"  iconPosition="right"  onclick="{!c.createtask}" />
+                        </div > 
+                        <div class="EventItems">
+                            <lightning:button  class="EventItem" label="Event" iconPosition="right" onclick="{!c.createevent}"/></div>
+                    </div>
+                </div>
+            </section>            
+            <div class="slds-backdrop slds-backdrop_open"></div>             
+        </div>    
+    </aura:if>
+    
+    <!-- ## Left Pane with MonthView Calendar and CalendarItems ## -->
+    <div class="container" style="width:70%;background:white;left: 0px;margin-top:2% !important; margin-left: 15% !important; margin-right: 15% !important	" >
+        
+        <lightning:layout class="CalendarRegion" multipleRows="true">
+            <lightning:layoutItem  class="leftlayout"  padding="around-small"   size="3">
+                
+                <!--## MonthView calendar ##--> 
+                
+                <aura:if isTrue="{!v.istask}">
+                    <!-- Taskdatetimer="{!v.datetimer}" -->
+                    <c:ModalComponent   selectedrecord="{#v.childjpActivity}"/> 
+                </aura:if> 
+                
+                <lightning:layout multipleRows="true"  >
+                    <lightning:layoutItem  padding="around-small" size="12">
+                        <c:MonthViewCalendar/>
+                    </lightning:layoutItem>
+                    
+                    <lightning:layoutItem  padding="around-small" size="12">
+                        <c:Search_Component objectAPIName = "ivybase__Resource__c"  IconName = "standard:avatar" label = "Manager Name" selectedRecord = "{!v.selectedManagerRecord}" resourceType = "Manager"/>
+                    </lightning:layoutItem>
+                    
+                    <lightning:layoutItem  padding="around-small" size="12">
+                        <c:Search_Component objectAPIName = "ivybase__Resource__c"  IconName = "standard:individual" label = "Rep Name" selectedRecord = "{!v.selectedrepRecord}" resourceType = "Sales Rep" ManagerRecord = "{!v.selectedManagerRecord}"/>  
+                    </lightning:layoutItem>
+                    
+                    <lightning:layoutItem  padding="around-small" size="6">
+                        <lightning:button variant="brand" label="Get Records" title="Get Records" onclick="{! c.afterScriptsLoaded}" />
+                    </lightning:layoutItem>
+                    <lightning:layoutItem  padding="around-small" size="6">
+                        <lightning:layout multipleRows="true">
+                            <lightning:layoutItem size="4">
+                                <div class="slds-box slds-box_xx-small" style="background-color:#00a3ad">
+                                    Jp Activity
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <div class="slds-box slds-box_xx-small" style="background-color:#FF6e7e">
+                                    Rinten
+                                </div>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem size="4">
+                                <div class="slds-box slds-box_xx-small" style="background-color:#C79DF0">
+                                    Doko
+                                </div>
+                            </lightning:layoutItem>
+                        </lightning:layout>
+                    </lightning:layoutItem>
+                    
+                </lightning:layout>
+            </lightning:layoutItem>
+            
+            <!--## FullCalendar Right Pane ##-->
+            
+            <lightning:layoutItem padding="around-small" class="calendar" size="9">
+                <div id='calendar'  class="mycalendar">
+                </div>  
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+    
+</aura:component>

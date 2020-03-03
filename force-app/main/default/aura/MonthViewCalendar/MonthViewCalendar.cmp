@@ -1,0 +1,27 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    
+    
+    <ltng:require styles="{!join(',',
+                          $Resource.MonthViewCalendar     + '/responsive-nao-calendar/aicon/style.css',   
+                          $Resource.MonthViewCalendar     + '/responsive-nao-calendar/css/jquery-nao-calendar.css'
+                          
+                          )}"
+                  
+                  scripts="{!join(',',
+                           
+                           $Resource.fullcalendar_390  + '/fullcalendar390/lib/jquery.min.js',
+                           $Resource.MonthViewCalendar  + '/responsive-nao-calendar/jquery-nao-calendar.js',
+                           $Resource.MonthViewCalendar  + '/responsive-nao-calendar/jquery-pseudo-ripple.js'
+                           )}"
+                  afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <aura:attribute name="SelectedDate" type="Date"/>
+    <aura:registerEvent name="DateFromCalendar" type="c:MonthCalendarDate" />
+    
+    <h1 style="color:#00a3ad;font-size:x-large;margin-left:5%" >  My Calendar </h1>
+    <br/>
+    
+    <div class="monthcalendar" style="min-width:110%" id="month" ></div>
+
+    
+</aura:component>
