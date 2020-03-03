@@ -4,7 +4,7 @@ public class TESTRESTLastVisitStockManager {
     {
         Id userId = UserInfo.getUserId();
         ivybase__Resource_Type__c resType = new ivybase__Resource_Type__c(Name='Test ResType');
-        insert resType;
+        insert resType; 
         
         ivybase__Resource__c resource = new ivybase__Resource__c(Name='Test Resource',Market_ISO__c = 'MY',ivybase__Related_User__c=userId,ivybase__Resource_Type__c=resType.Id);
         insert resource;
